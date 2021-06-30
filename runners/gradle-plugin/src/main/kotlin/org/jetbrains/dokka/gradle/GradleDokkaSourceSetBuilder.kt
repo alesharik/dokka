@@ -122,6 +122,11 @@ open class GradleDokkaSourceSetBuilder(
     val platform: Property<Platform> = project.objects.safeProperty<Platform>()
         .safeConvention(Platform.DEFAULT)
 
+    @Nested
+    val includeSources: SetProperty<String> =
+        project.objects.setProperty<String>()
+            .convention(emptySet())
+
     fun DokkaSourceSetID(sourceSetName: String): DokkaSourceSetID = sourceSetIdFactory.create(sourceSetName)
 
     fun dependsOn(sourceSet: SourceSet) {
@@ -198,6 +203,10 @@ open class GradleDokkaSourceSetBuilder(
                 }
             }
         )
+    }
+
+    fun include(pattern: String) {
+        includeSources.add(pattern)
     }
 
     override fun build(): DokkaSourceSetImpl = toDokkaSourceSetImpl()

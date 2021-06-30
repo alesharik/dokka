@@ -136,6 +136,7 @@ interface DokkaConfiguration : Serializable {
         val noJdkLink: Boolean
         val suppressedFiles: Set<File>
         val analysisPlatform: Platform
+        val includeSources: Set<String>
     }
 
     interface SourceLinkDefinition : Serializable {

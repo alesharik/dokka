@@ -99,7 +99,8 @@ class DokkaSourceSetBuilder(
     var analysisPlatform: String = "jvm",
     var perPackageOptions: List<PackageOptionsImpl> = emptyList(),
     var externalDocumentationLinks: List<ExternalDocumentationLinkImpl> = emptyList(),
-    var sourceLinks: List<SourceLinkDefinitionImpl> = emptyList()
+    var sourceLinks: List<SourceLinkDefinitionImpl> = emptyList(),
+    var includeSources: Set<String> = emptySet()
 ) {
     fun build() = DokkaSourceSetImpl(
         displayName = displayName,
@@ -122,7 +123,8 @@ class DokkaSourceSetBuilder(
         noStdlibLink = noStdlibLink,
         noJdkLink = noJdkLink,
         suppressedFiles = suppressedFiles.map(::File).toSet(),
-        analysisPlatform = Platform.fromString(analysisPlatform)
+        analysisPlatform = Platform.fromString(analysisPlatform),
+        includeSources = includeSources
     )
 }
 
@@ -147,7 +149,8 @@ val defaultSourceSet = DokkaSourceSetImpl(
     noStdlibLink = false,
     noJdkLink = false,
     suppressedFiles = emptySet(),
-    analysisPlatform = Platform.DEFAULT
+    analysisPlatform = Platform.DEFAULT,
+    includeSources = emptySet()
 )
 
 fun sourceSet(name: String): DokkaConfiguration.DokkaSourceSet {

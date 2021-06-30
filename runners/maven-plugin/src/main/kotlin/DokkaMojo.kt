@@ -165,6 +165,9 @@ abstract class AbstractDokkaMojo(private val defaultDokkaPlugins: List<Dependenc
     var dokkaPlugins: List<Dependency> = emptyList()
         get() = field + defaultDokkaPlugins
 
+    @Parameter
+    var includeSources: List<String> = emptyList()
+
     protected abstract fun getOutDir(): String
 
     override fun execute() {
@@ -219,6 +222,7 @@ abstract class AbstractDokkaMojo(private val defaultDokkaPlugins: List<Dependenc
             noJdkLink = noJdkLink,
             suppressedFiles = suppressedFiles.map(::File).toSet(),
             analysisPlatform = if (platform.isNotEmpty()) Platform.fromString(platform) else Platform.DEFAULT,
+            includeSources = includeSources.toSet()
         ).let {
             it.copy(
                 externalDocumentationLinks = defaultLinks(it) + it.externalDocumentationLinks

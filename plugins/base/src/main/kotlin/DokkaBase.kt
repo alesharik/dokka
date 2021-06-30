@@ -66,6 +66,10 @@ class DokkaBase : DokkaPlugin() {
         preMergeDocumentableTransformer providing ::DeprecatedDocumentableFilterTransformer
     }
 
+    val includeSourcesDocumentableFilter by extending {
+        preMergeDocumentableTransformer providing ::IncludeSourcesDocumentableFilterTransformer
+    }
+
     val suppressedDocumentableFilter by extending {
         preMergeDocumentableTransformer providing ::SuppressedByConfigurationDocumentableFilterTransformer
     }
@@ -95,6 +99,7 @@ class DokkaBase : DokkaPlugin() {
                 suppressedBySuppressTagDocumentableFilter,
                 obviousFunctionsVisbilityFilter,
                 inheritedEntriesVisbilityFilter,
+                includeSourcesDocumentableFilter,
             )
         }
     }
